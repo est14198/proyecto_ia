@@ -12,8 +12,8 @@ from minimax_fun import minimax
 
 # Datos conexion al servidor
 sio = socketio.Client()
-tournamentID = '1'
-username = 'heuristica'
+tournamentID = '5000'
+username = 'Maria Estrada'
 
 # Conectar al servidor
 @sio.event
@@ -45,8 +45,6 @@ def ready(data):
             'movement': movement
         }
     )
-    print(playerTurnID)
-    print(board)
     
 # Al terminar partida, colocar al jugador en ready para nueva partida
 @sio.event
@@ -68,7 +66,7 @@ def disconnect():
     print('Disconnected from server')
 
 # IPs
-#sio.connect('http://3.12.129.126:5000')
-sio.connect('http://127.0.0.1:4000')
+sio.connect('http://3.12.129.126:5000')
+#sio.connect('http://127.0.0.1:4000')
 
 sio.wait()

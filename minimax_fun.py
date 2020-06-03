@@ -12,6 +12,7 @@ from copy import copy, deepcopy
 # Funcion minimax con 3-lookahead y alpha-beta
 def minimax(tablero, player):
 
+    # Para siempre ser los positivos
     if player == 2:
         for i in range(0,2):
             for j in range(0,30):
@@ -22,6 +23,7 @@ def minimax(tablero, player):
     valor_minimax = -500
     movimiento = [-1,-1]
 
+    # Nivel 1 look ahead
     for i in range(60):
         if copya[0 if i < 30 else 1][i%30] == 99:
             valor_minimax_i = 500
@@ -34,7 +36,8 @@ def minimax(tablero, player):
                 valor_minimax_i = -500
             
             flag_j = False
-
+             
+            # Nivel 2 look ahead
             for j in range(60):               
                 if copya2[0 if j < 30 else 1][j%30] == 99:
                     flag_j = True
@@ -51,6 +54,8 @@ def minimax(tablero, player):
                         valor_minimax_j = -500
 
                     flag_k = False
+
+                    # Nivel 3 look ahead
                     for k in range(60):
                         if copya3[0 if k < 30 else 1][k%30] == 99:
                             flag_k = True
@@ -65,7 +70,7 @@ def minimax(tablero, player):
                                 max_k = True
                             elif resultado == 0 and max_j == False:
                                 max_k = True
-
+                            # Heuristica
                             if max_k:
                                 puntos_totales += puntos_heuristica
                             else:
@@ -83,7 +88,7 @@ def minimax(tablero, player):
                             if max_j and max_i == False:
                                 if valor_minimax_j >= valor_minimax_i:
                                     break
-                    
+                    # Heuristica
                     if flag_k == False:
                         valor_minimax_j = suma(copya3)
                         if max_j:
@@ -99,7 +104,7 @@ def minimax(tablero, player):
                     if max_i == False:
                         if valor_minimax >= valor_minimax_i:
                             break
-
+            # Si ya no queda nivel 3
             if flag_j == False:
                 valor_minimax_i = suma(copya2)
                 if max_i:
@@ -110,7 +115,7 @@ def minimax(tablero, player):
             if valor_minimax_i > valor_minimax:
                 valor_minimax = valor_minimax_i
                 movimiento = [0 if i < 30 else 1, i%30]
-    print("valor minimax" + str(valor_minimax))
+                
     return movimiento
 
 
@@ -210,7 +215,5 @@ def heuristica(tablero):
         
         if contador_vacios == 1:
             cuadros_casi_llenos += 1
-
-    #print("cuadros: " + str(cuadros_casi_llenos))
     
     return cuadros_casi_llenos
