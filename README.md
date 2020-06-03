@@ -1,5 +1,5 @@
 ### Universidad del Valle de Guatemala
-### Inteligencia Artificial - 14198
+### Inteligencia Artificial - Seccion 10
 ### Maria Fernanda Estrada 14198
 ### 03/06/2020
 
