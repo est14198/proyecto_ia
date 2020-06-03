@@ -12,8 +12,8 @@ from minimax_fun import minimax
 
 # Datos conexion al servidor
 sio = socketio.Client()
-tournamentID = '2'
-username = 'Maria Estrada'
+tournamentID = '1'
+username = 'heuristica'
 
 # Conectar al servidor
 @sio.event
@@ -35,7 +35,7 @@ def ready(data):
     gameID = data['game_id']
     playerTurnID = data['player_turn_id']
     board = data['board']
-    movement = minimax(board)
+    movement = minimax(board, playerTurnID)
     # Emitir datos de jugada
     sio.emit('play',
         {
@@ -45,6 +45,8 @@ def ready(data):
             'movement': movement
         }
     )
+    print(playerTurnID)
+    print(board)
     
 # Al terminar partida, colocar al jugador en ready para nueva partida
 @sio.event
